@@ -5,7 +5,7 @@ Roles are hats that a user can wear, not their identity.
 
 * A **Contributor** is a person who MAY send a pull request to solve a problem.   
 * A **Maintainer** is a person who MAY merge pull requests.
-* An **Administrator** is a person who has dictatorial powers over the organization.
+* An **Administrator** is a person or voting bloc who has dictatorial powers over the organization.
 
 
 ### Lifecycle
@@ -40,22 +40,65 @@ A problem (or branch of the the problem tree) that should not be focused on righ
 | RFC 2119 | Description | Spec or Example |
 |---|---|---|
 |MUST|Unique Identifier|`<random 256bit hex>`|
+|MUST|Creator|`<pubkey>`|
+|SHOULD|The parent(s) of this problem|`[<256bit hex>, ...]`|
 |MUST|One sentence describing the problem, used as the title in clients|`<up to 140 character description of the problem>`|
 |SHOULD|One paragraph describing the problem|`<up to 560 charactars summarizing the problem>`|
 |OPTIONAL|One page describing the problem, MAY include markdown|`<extended description of the problem, MAY contain markdown>`|
-|SHOULD|The parent(s) of this problem|`[<256bit hex>]`|
 |OPTIONAL|Org(s) that this applies to|`[<org identifier>]`|
-|SHOULD|Lifecycle status|`["status", "<draft \| rfm \| big \| children \| open \| claimed \| patched \| closed">]`|
-|OPTIONAL|Claim data|`["claim", <pubkey claiming it>:<bitcoin height when claimed>]`|
-|SHOULD|Child status upon creation|`["child_status", <rfm \| open >]`|
-|OPTIONAL|repository |`["repo", 30617:<pubkey>:<d-tag>]`|
-|OPTIONAL|required skill, language, etc|`["skill", "golang"]` `["skill", "docker"]`|
-|OPTIONAL|references to other problems |`["a", 31971:<pubkey>:<256bit hex>, "mention"]`|
-|SHOULD|Pubkeys of maintainers, add a new tag for each, clients SHOULD copy the parent's list to begin with|`["maintainer", <pubkey>]`|
-|SHOULD| Current block when publishing, mostly for convenience. | `[ "bitcoin", "<current bitcoin height>:<hash>" ]` |
+|SHOULD|Lifecycle status|`<draft \| open_children \| open \| claimed \| patched \| closed">`|
+|OPTIONAL|Claim data|`(<pubkey claiming it>, <timestamp when claimed>)`|
+|OPTIONAL|repository |`[(<url for pull requests>, <canonical bare repo>)]`|
+|OPTIONAL|required skills, language, credentials, etc|`["golang", "docker", ...]`|
+|SHOULD|Maintainers, client SHOULD copy the parent problem's maintainers to begin with|`[<pubkey>, ...]`|
+|MUST| Timestamp when created | `<timestamp>` |
+|MUST| Timestamp when updated | `<timestamp>` |
+|OPTIONAL| Discussion | `[<UID of comment>, ...]` |
+|OPTIONAL|Solution(s)|`[<solution object>]`|
 
+### Solution Object Data Structure
+| RFC 2119 | Description | Spec or Example |
+|---|---|---|
+|MUST|Unique Identifier|`<random 256bit hex>`|
+|MUST|Creator|`<pubkey>`|
+|MUST|URL|`<url of solution (e.g. PR)>`|
+|SHOULD|Description of solution|`<Markdown description of solution>`|
+|MUST|Cost of solution (USD)|`<int>`|
+|MUST| Timestamp when created | `<timestamp>` |
 
-Events published by maintainers and using the same `d` tag are considered as replacements (by the client, not relays) if they are newer.
+### Comment Object Data Structure
+Discussions can occur in relation to Problems.  
 
-Clients get maintainer lists from the event itself, if none are specified then they use the parent event list, the tagged rocket(s), tagged NIP34 repo, etc.
+| RFC 2119 | Description | Spec or Example |
+|---|---|---|
+|MUST|Unique Identifier|`<random 256bit hex>`|
+|MUST|Creator|`<pubkey>`|
+|MUST|Comment text|`<up to 560 charactars inline markdown (no headings etc)>`|
+|SHOULD|The parent(s) of this comment (a Problem or another Comment)|`[<256bit hex UID>, ...]`|
+|MUST| Timestamp when created | `<timestamp>` |
+|OPTIONAL| Associated Lifecycle Modification | |`<draft \| open_children \| open \| claimed \| patched \| closed">` |
 
+### User Object Data Structure
+
+| RFC 2119 | Description | Spec or Example |
+|---|---|---|
+|MUST|Pubkey|`<random 256bit hex>`|
+|MUST|Name|`<Name of the user (length <20 )>`|
+|MUST|Github|`<Github Username>`|
+|SHOULD|email|`<email address>`|
+|SHOULD|Telegram|`<telegram username>`|
+|MUST|Sponsored By|`<UID of the user who invited this user>`|
+|SHOULD|Rate|`<hourly rate in USD>`|
+|SHOULD|Payment Addresses|`[(<network>, <address>), ...]`|
+|MUST|Action History|`[<actions>]`|
+
+### Organization Object Data Structure
+| RFC 2119 | Description | Spec or Example |
+|---|---|---|
+|MUST|UID|`<random 256bit hex>`|
+|MUST|Name|`<Name of the org (length <20 )>`|
+|SHOULD|Github Org|`<Github org URL>`|
+|MUST|Admins|`[<pubkey>, ...]`|
+|SHOULD|Problems|`[<top level problems>, ...]`|
+|SHOULD|Maintainers|`[<pubkey>, ...]`|
+|SHOULD|Contributors|`[<pubkey>, ...]`|
