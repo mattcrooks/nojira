@@ -48,6 +48,7 @@ Note: the `has_children` status does not neccessarily need to exist in the datab
 |MUST|Unique Identifier|`<random 256bit hex>`|
 |MUST|Creator|`<pubkey>`|
 |SHOULD|The parent(s) of this problem|`[<256bit hex>, ...]`|
+|SHOULD|The problem that caused this one|`<256bit hex>`|
 |MUST|One sentence describing the problem, used as the title in clients|`<up to 140 character description of the problem>`|
 |SHOULD|One paragraph describing the problem|`<up to 560 charactars summarizing the problem>`|
 |OPTIONAL|One page describing the problem, MAY include markdown|`<extended description of the problem, MAY contain markdown>`|

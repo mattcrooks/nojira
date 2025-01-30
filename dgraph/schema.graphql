@@ -1,0 +1,93 @@
+enum ProblemStatus {
+  DRAFT
+  OPEN
+  CLAIMED
+  PATCHED
+  CLOSED
+  PAUSED
+}
+
+type User {
+  OID: ID!
+  name: String! @search(by: [hash])
+  github: String! @search(by: [exact])
+  email: String
+  telegram: String
+  sponsoredBy: User
+  rate: Int
+  paymentAddresses: [PaymentAddress]
+  actionHistory: [String]
+  maintainedOrgs: [Organization] #we need org owners to invite people but the user needs to accept it before it shows on their profile, so we don't use an @hasInverse here. Todo: @auth directive to check if this user has been added to org before adding org here.
+  administeredOrgs: [Organization] # same as above
+  # Relationships
+  authoredProblems: [Problem]
+  claimed: [Problem] 
+  comments: [Comment] 
+}
+
+type Organization {
+  OID: ID!
+  name: String! @search(by: [hash])
+  githubOrg: String
+  admins: [User!]!
+  createdBy: User! @hasInverse(field: administeredOrgs)
+  maintainers: [User]
+  contributors: [User]
+  problems: [Problem]
+}
+
+type Problem {
+  OID: ID!
+  creator: User! @hasInverse(field: authoredProblems)
+  causedBy: Solution @hasInverse(field: introducedProblems)
+  claimedBy: User @hasInverse(field: claimed) #todo check if user has any claimed problems that are still open/claimed
+  parents: [Problem] @hasInverse(field: children)
+  children: [Problem] @hasInverse(field: parents)
+  title: String! @search(by: [fulltext])
+  shortDescription: String @search(by: [fulltext])
+  detailedDescription: String
+  orgs: [Organization] @hasInverse(field: problems)
+  status: ProblemStatus! @search
+  claimedAt: DateTime
+  repository: [Repository]
+  requiredSkills: [String] @search(by: [exact])
+  maintainers: [User]
+  created_at: DateTime! @search
+  updated_at: DateTime! @search
+  comments: [Comment] @hasInverse(field: parentProblem)
+  solutions: [Solution] @hasInverse(field: problem)
+}
+
+type Solution {
+  OID: ID!
+  creator: User!
+  url: String! @search(by: [exact])
+  description: String @search(by: [fulltext])
+  costUSD: Int! @search
+  created_at: DateTime! @search
+  updated_at: DateTime! @search
+  problem: Problem!
+  introducedProblems: [Problem] @hasInverse(field: causedBy)
+}
+
+type Comment {
+  OID: ID!
+  creator: User! @hasInverse(field: comments)
+  text: String! @search(by: [fulltext])
+  parentProblem: Problem @hasInverse(field: comments)
+  parentComment: Comment @hasInverse(field: replies)
+  replies: [Comment]
+  created_at: DateTime! @search
+  associatedStatus: ProblemStatus
+  userTags: [User]
+}
+
+type PaymentAddress {
+  network: String!
+  address: String!
+}
+
+type Repository {
+  http: String!
+  git: String
+}
