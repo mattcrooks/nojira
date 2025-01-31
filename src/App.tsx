@@ -35,6 +35,56 @@ function query() {
     .catch((error) => console.log(error));
 }
 
+async function fetchGraphQL(operationsDoc, operationName, variables) {
+  const result = await fetch(
+    "https://green-feather-41451536.ap-south-1.aws.cloud.dgraph.io/graphql",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJzL3Byb3h5IiwiZHVpZCI6IjB4ODJiMjM3ZWJkIiwiZXhwIjoxNzM4MjQyMDg1LCJpc3MiOiJzL2FwaSJ9.deQO-dQ5frLLCR539HYK0VFE12htTrHdtzUt1MttZhc"
+      },
+      body: JSON.stringify({
+        query: operationsDoc,
+        variables: variables,
+        operationName: operationName
+      })
+    }
+  );
+
+  return await result.json();
+}
+
+const operationsDoc = `
+  query MyQuery {
+    queryUser {
+      email
+      telegram
+      rate
+    }
+  }
+`;
+
+function fetchMyQuery() {
+  return fetchGraphQL(
+    operationsDoc,
+    "MyQuery",
+    {}
+  );
+}
+
+async function startFetchMyQuery() {
+  const { errors, data } = await fetchMyQuery();
+
+  if (errors) {
+    // handle those errors like a pro
+    console.error(errors);
+  }
+
+  // do something great with this precious data
+  console.log(data);
+}
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -53,7 +103,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <button onClick={query}>Query</button>
+        <button onClick={startFetchMyQuery}>Query</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
