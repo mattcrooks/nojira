@@ -1,0 +1,13 @@
+query Problem($id: ID!) {
+  getProblem(id: $id) {
+    id
+    claimedAt
+    created_at
+    detailedDescription
+    requiredSkills
+    shortDescription
+    status
+    title
+    updated_at
+  }
+}
