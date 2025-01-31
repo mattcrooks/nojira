@@ -1,0 +1,9 @@
+query Problems {
+  queryProblem {
+    id
+    created_at
+    title
+    status
+    updated_at
+  }
+}
