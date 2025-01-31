@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { useAllUsersQueryQuery } from "./gql/types/users";
+import { useAllUsersQueryQuery } from "./gql/types/users.gen";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
   const client = new ApolloClient({
     uri: 'https://green-feather-41451536.ap-south-1.aws.cloud.dgraph.io/graphql',
