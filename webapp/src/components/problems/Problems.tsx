@@ -9,7 +9,7 @@ export const Problems: React.FC = () => {
   if (error) return <div>Error loading problems.</div>;
 
   return (
-    <div>
+    <div> 
       <ul>
         {data?.queryProblem?.map((problem) => (
           <li key={problem?.id}>{problem?.title}</li>

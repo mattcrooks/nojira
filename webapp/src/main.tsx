@@ -8,6 +8,8 @@ import { routeTree } from './routeTree.gen'
 import client from './shared/apolloClient';
 import { ApolloProvider } from '@apollo/client';
 
+import './index.css'
+
 // Create a new router instance
 const router = createRouter({ routeTree })
 
