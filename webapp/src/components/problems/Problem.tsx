@@ -5,9 +5,9 @@ type ProblemProps = {
 };
 
 export default function Problem({ id }: ProblemProps) {
-  const { data, isLoading, error } = useProblemQuery({variables: {id}});
+  const { data, loading, error } = useProblemQuery({ variables: { id } });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) {
     console.log(error);
     return <div>Check console for errors</div>;
