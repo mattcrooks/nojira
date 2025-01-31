@@ -1,0 +1,10 @@
+query AllUsersQuery {
+    queryUser {
+        name
+        github
+        email
+        telegram
+        rate
+        actionHistory
+    }
+}
