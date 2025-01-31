@@ -8,8 +8,7 @@ enum ProblemStatus {
 }
 
 type User {
-  OID: ID!
-  name: String! @search(by: [hash])
+  name: String! @id
   github: String! @search(by: [exact])
   email: String
   telegram: String
@@ -21,13 +20,12 @@ type User {
   administeredOrgs: [Organization] # same as above
   # Relationships
   authoredProblems: [Problem]
-  claimed: [Problem] 
-  comments: [Comment] 
+  claimed: [Problem]
+  comments: [Comment]
 }
 
 type Organization {
-  OID: ID!
-  name: String! @search(by: [hash])
+  name: String! @id @search(by: [hash])
   githubOrg: String
   admins: [User!]!
   createdBy: User! @hasInverse(field: administeredOrgs)
@@ -37,7 +35,7 @@ type Organization {
 }
 
 type Problem {
-  OID: ID!
+  id: ID!
   creator: User! @hasInverse(field: authoredProblems)
   causedBy: Solution @hasInverse(field: introducedProblems)
   claimedBy: User @hasInverse(field: claimed) #todo check if user has any claimed problems that are still open/claimed
@@ -59,7 +57,7 @@ type Problem {
 }
 
 type Solution {
-  OID: ID!
+  id: ID!
   creator: User!
   url: String! @search(by: [exact])
   description: String @search(by: [fulltext])
@@ -71,7 +69,7 @@ type Solution {
 }
 
 type Comment {
-  OID: ID!
+  id: ID!
   creator: User! @hasInverse(field: comments)
   text: String! @search(by: [fulltext])
   parentProblem: Problem @hasInverse(field: comments)
@@ -89,5 +87,5 @@ type PaymentAddress {
 
 type Repository {
   http: String!
-  git: String
+  git: String!
 }
