@@ -4,17 +4,11 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { useAllUsersQueryQuery } from "./gql/types/users.gen";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-  const client = new ApolloClient({
-    uri: 'https://green-feather-41451536.ap-south-1.aws.cloud.dgraph.io/graphql',
-    cache: new InMemoryCache(),
-  });
-  
+
 function App() {
   const [count, setCount] = useState(0);
 
-  const {data, loading, error} = useAllUsersQueryQuery({
-   client: client,
-  });
+  const { data, loading, error } = useAllUsersQueryQuery();
 
   return (
     <>
@@ -27,7 +21,7 @@ function App() {
         </a>
       </div>
       <h1>{loading ? "Loading..." : "Idle"}</h1>
-      {error && <p>{error.message}</p>} 
+      {error && <p>{error.message}</p>}
       {data && (
         <ul>
           {data.queryUser?.map((user) => (
@@ -39,8 +33,8 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        
-        
+
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
