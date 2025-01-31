@@ -2,9 +2,7 @@ import * as Types from '../../types/graphql';
 
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {
-  uri: 'http://localhost:8080/graphql'
-} as const;
+const defaultOptions = {} as const;
 export type AllUsersQueryQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 

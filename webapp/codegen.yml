@@ -3,7 +3,7 @@ schema: "http://localhost:8080/graphql"
 documents:
   - 'src/**/*.graphql'
 generates:
-  src/types/graphql.ts:
+  src/types/graphql.generated.ts:
     plugins:
       - typescript
   src/:
@@ -11,7 +11,7 @@ generates:
     presetConfig:
       baseTypesPath: types/graphql
       folder: types
-      extension: .ts
+      extension: .generated.ts
     plugins:
       - typescript-operations
       - typescript-react-apollo
