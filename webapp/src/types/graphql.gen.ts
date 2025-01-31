@@ -120,7 +120,7 @@ export type AddProblemPayloadProblemArgs = {
 };
 
 export type AddRepositoryInput = {
-  git?: InputMaybe<Scalars['String']['input']>;
+  git: Scalars['String']['input'];
   http: Scalars['String']['input'];
 };
 
@@ -202,10 +202,10 @@ export type AuthRule = {
 
 export type Comment = {
   __typename?: 'Comment';
-  OID: Scalars['ID']['output'];
   associatedStatus?: Maybe<ProblemStatus>;
   created_at: Scalars['DateTime']['output'];
   creator: User;
+  id: Scalars['ID']['output'];
   parentComment?: Maybe<Comment>;
   parentProblem?: Maybe<Problem>;
   replies?: Maybe<Array<Maybe<Comment>>>;
@@ -266,10 +266,10 @@ export type CommentAggregateResult = {
 };
 
 export type CommentFilter = {
-  OID?: InputMaybe<Array<Scalars['ID']['input']>>;
   and?: InputMaybe<Array<InputMaybe<CommentFilter>>>;
   created_at?: InputMaybe<DateTimeFilter>;
   has?: InputMaybe<Array<InputMaybe<CommentHasFilter>>>;
+  id?: InputMaybe<Array<Scalars['ID']['input']>>;
   not?: InputMaybe<CommentFilter>;
   or?: InputMaybe<Array<InputMaybe<CommentFilter>>>;
   text?: InputMaybe<StringFullTextFilter>;
@@ -309,10 +309,10 @@ export type CommentPatch = {
 };
 
 export type CommentRef = {
-  OID?: InputMaybe<Scalars['ID']['input']>;
   associatedStatus?: InputMaybe<ProblemStatus>;
   created_at?: InputMaybe<Scalars['DateTime']['input']>;
   creator?: InputMaybe<UserRef>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   parentComment?: InputMaybe<CommentRef>;
   parentProblem?: InputMaybe<ProblemRef>;
   replies?: InputMaybe<Array<InputMaybe<CommentRef>>>;
@@ -598,6 +598,7 @@ export type MutationAddCommentArgs = {
 
 export type MutationAddOrganizationArgs = {
   input: Array<AddOrganizationInput>;
+  upsert?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -623,6 +624,7 @@ export type MutationAddSolutionArgs = {
 
 export type MutationAddUserArgs = {
   input: Array<AddUserInput>;
+  upsert?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -702,7 +704,6 @@ export type NearFilter = {
 
 export type Organization = {
   __typename?: 'Organization';
-  OID: Scalars['ID']['output'];
   admins: Array<User>;
   adminsAggregate?: Maybe<UserAggregateResult>;
   contributors?: Maybe<Array<Maybe<User>>>;
@@ -783,7 +784,6 @@ export type OrganizationAggregateResult = {
 };
 
 export type OrganizationFilter = {
-  OID?: InputMaybe<Array<Scalars['ID']['input']>>;
   and?: InputMaybe<Array<InputMaybe<OrganizationFilter>>>;
   has?: InputMaybe<Array<InputMaybe<OrganizationHasFilter>>>;
   name?: InputMaybe<StringHashFilter>;
@@ -823,7 +823,6 @@ export type OrganizationPatch = {
 };
 
 export type OrganizationRef = {
-  OID?: InputMaybe<Scalars['ID']['input']>;
   admins?: InputMaybe<Array<UserRef>>;
   contributors?: InputMaybe<Array<InputMaybe<UserRef>>>;
   createdBy?: InputMaybe<UserRef>;
@@ -924,7 +923,6 @@ export type PolygonRef = {
 
 export type Problem = {
   __typename?: 'Problem';
-  OID: Scalars['ID']['output'];
   causedBy?: Maybe<Solution>;
   children?: Maybe<Array<Maybe<Problem>>>;
   childrenAggregate?: Maybe<ProblemAggregateResult>;
@@ -935,6 +933,7 @@ export type Problem = {
   created_at: Scalars['DateTime']['output'];
   creator: User;
   detailedDescription?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
   maintainers?: Maybe<Array<Maybe<User>>>;
   maintainersAggregate?: Maybe<UserAggregateResult>;
   orgs?: Maybe<Array<Maybe<Organization>>>;
@@ -1076,10 +1075,10 @@ export type ProblemAggregateResult = {
 };
 
 export type ProblemFilter = {
-  OID?: InputMaybe<Array<Scalars['ID']['input']>>;
   and?: InputMaybe<Array<InputMaybe<ProblemFilter>>>;
   created_at?: InputMaybe<DateTimeFilter>;
   has?: InputMaybe<Array<InputMaybe<ProblemHasFilter>>>;
+  id?: InputMaybe<Array<Scalars['ID']['input']>>;
   not?: InputMaybe<ProblemFilter>;
   or?: InputMaybe<Array<InputMaybe<ProblemFilter>>>;
   requiredSkills?: InputMaybe<StringExactFilter>;
@@ -1147,7 +1146,6 @@ export type ProblemPatch = {
 };
 
 export type ProblemRef = {
-  OID?: InputMaybe<Scalars['ID']['input']>;
   causedBy?: InputMaybe<SolutionRef>;
   children?: InputMaybe<Array<InputMaybe<ProblemRef>>>;
   claimedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1156,6 +1154,7 @@ export type ProblemRef = {
   created_at?: InputMaybe<Scalars['DateTime']['input']>;
   creator?: InputMaybe<UserRef>;
   detailedDescription?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   maintainers?: InputMaybe<Array<InputMaybe<UserRef>>>;
   orgs?: InputMaybe<Array<InputMaybe<OrganizationRef>>>;
   parents?: InputMaybe<Array<InputMaybe<ProblemRef>>>;
@@ -1242,27 +1241,27 @@ export type QueryAggregateUserArgs = {
 
 
 export type QueryGetCommentArgs = {
-  OID: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryGetOrganizationArgs = {
-  OID: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 
 export type QueryGetProblemArgs = {
-  OID: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryGetSolutionArgs = {
-  OID: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
 export type QueryGetUserArgs = {
-  OID: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 
@@ -1323,7 +1322,7 @@ export type QueryQueryUserArgs = {
 
 export type Repository = {
   __typename?: 'Repository';
-  git?: Maybe<Scalars['String']['output']>;
+  git: Scalars['String']['output'];
   http: Scalars['String']['output'];
 };
 
@@ -1371,11 +1370,11 @@ export type RepositoryRef = {
 
 export type Solution = {
   __typename?: 'Solution';
-  OID: Scalars['ID']['output'];
   costUSD: Scalars['Int']['output'];
   created_at: Scalars['DateTime']['output'];
   creator: User;
   description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
   introducedProblems?: Maybe<Array<Maybe<Problem>>>;
   introducedProblemsAggregate?: Maybe<ProblemAggregateResult>;
   problem: Problem;
@@ -1424,12 +1423,12 @@ export type SolutionAggregateResult = {
 };
 
 export type SolutionFilter = {
-  OID?: InputMaybe<Array<Scalars['ID']['input']>>;
   and?: InputMaybe<Array<InputMaybe<SolutionFilter>>>;
   costUSD?: InputMaybe<IntFilter>;
   created_at?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFullTextFilter>;
   has?: InputMaybe<Array<InputMaybe<SolutionHasFilter>>>;
+  id?: InputMaybe<Array<Scalars['ID']['input']>>;
   not?: InputMaybe<SolutionFilter>;
   or?: InputMaybe<Array<InputMaybe<SolutionFilter>>>;
   updated_at?: InputMaybe<DateTimeFilter>;
@@ -1473,11 +1472,11 @@ export type SolutionPatch = {
 };
 
 export type SolutionRef = {
-  OID?: InputMaybe<Scalars['ID']['input']>;
   costUSD?: InputMaybe<Scalars['Int']['input']>;
   created_at?: InputMaybe<Scalars['DateTime']['input']>;
   creator?: InputMaybe<UserRef>;
   description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
   introducedProblems?: InputMaybe<Array<InputMaybe<ProblemRef>>>;
   problem?: InputMaybe<ProblemRef>;
   updated_at?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1660,7 +1659,6 @@ export type UpdateUserPayloadUserArgs = {
 
 export type User = {
   __typename?: 'User';
-  OID: Scalars['ID']['output'];
   actionHistory?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   administeredOrgs?: Maybe<Array<Maybe<Organization>>>;
   administeredOrgsAggregate?: Maybe<OrganizationAggregateResult>;
@@ -1783,7 +1781,6 @@ export type UserAggregateResult = {
 };
 
 export type UserFilter = {
-  OID?: InputMaybe<Array<Scalars['ID']['input']>>;
   and?: InputMaybe<Array<InputMaybe<UserFilter>>>;
   github?: InputMaybe<StringExactFilter>;
   has?: InputMaybe<Array<InputMaybe<UserHasFilter>>>;
@@ -1839,7 +1836,6 @@ export type UserPatch = {
 };
 
 export type UserRef = {
-  OID?: InputMaybe<Scalars['ID']['input']>;
   actionHistory?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   administeredOrgs?: InputMaybe<Array<InputMaybe<OrganizationRef>>>;
   authoredProblems?: InputMaybe<Array<InputMaybe<ProblemRef>>>;
