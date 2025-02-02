@@ -11,3 +11,10 @@ query Problems {
     updated_at
   }
 }
+
+mutation UpdateTitle($id: [ID!], $title: String!) {
+  updateProblem(input: {filter: {id: $id}, set: {title: $title}}) {numUids}
+}
+
+
+
