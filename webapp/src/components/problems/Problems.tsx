@@ -1,20 +1,27 @@
 import React from "react";
 
+import Title from "./Title";
 import { useProblemsQuery } from "./types/problems.gen";
 
 export const Problems: React.FC = () => {
   const { data, loading, error } = useProblemsQuery();
+  const problems = data?.queryProblem
+    ?.map((problem) => {
+      if (problem) {
+        return problem;
+      }
+    })
+    .filter((problem) => problem !== undefined);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading problems.</div>;
 
-  return (
-    <div> 
-      <ul>
-        {data?.queryProblem?.map((problem) => (
-          <li key={problem?.id}>{problem?.title}</li>
+  if (problems)
+    return (
+      <div>
+        {problems.map((problem) => (
+          <Title key={problem.id} problem={problem} />
         ))}
-      </ul>
-    </div>
-  );
+      </div>
+    );
 };

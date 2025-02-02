@@ -1,9 +1,13 @@
 query Problems {
   queryProblem {
     id
+    claimedAt
     created_at
-    title
+    detailedDescription
+    requiredSkills
+    shortDescription
     status
+    title
     updated_at
   }
 }

@@ -6,16 +6,20 @@ const defaultOptions = {} as const;
 export type ProblemsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type ProblemsQuery = { __typename?: 'Query', queryProblem?: Array<{ __typename?: 'Problem', id: string, created_at: any, title: string, status: Types.ProblemStatus, updated_at: any } | null> | null };
+export type ProblemsQuery = { __typename?: 'Query', queryProblem?: Array<{ __typename?: 'Problem', id: string, claimedAt?: any | null, created_at: any, detailedDescription?: string | null, requiredSkills?: Array<string | null> | null, shortDescription?: string | null, status: Types.ProblemStatus, title: string, updated_at: any } | null> | null };
 
 
 export const ProblemsDocument = gql`
     query Problems {
   queryProblem {
     id
+    claimedAt
     created_at
-    title
+    detailedDescription
+    requiredSkills
+    shortDescription
     status
+    title
     updated_at
   }
 }
