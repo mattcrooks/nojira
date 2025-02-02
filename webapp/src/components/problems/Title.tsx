@@ -9,7 +9,7 @@ type ProblemProps = {
 };
 
 export default function Problem({ problem }: ProblemProps) {
-  const [inputValue, setInputValue] = useState(problem?.title);
+  const [inputValue, setInputValue] = useState(problem?.title || "");
   if (problem) {
     console.log(problem);
     return (
