@@ -39,11 +39,11 @@ jobs:
         working-directory: ./webapp
 
       - name: Config GitHub Pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v2
         id: pages
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           path: ./webapp/dist
 
@@ -54,7 +54,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/deploy-pages@v1
+      - uses: actions/deploy-pages@v2
         id: deployment
 
   tag:
