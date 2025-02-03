@@ -1,7 +1,20 @@
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
+import { Separator } from '@radix-ui/react-separator';
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
@@ -19,19 +32,13 @@ export const Route = createRootRoute({
       <hr /> */}
 
       <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-        <div className="[--header-height:calc(theme(spacing.14))]">
-          <SidebarProvider className="flex flex-col">
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
             <SiteHeader />
-            <div className="flex flex-1">
-              <AppSidebar />
-              <SidebarInset>
-                <div className="flex flex-1 flex-col gap-4 p-4">
-                  <Outlet />
-                </div>
-              </SidebarInset>
-            </div>
-          </SidebarProvider>
-        </div>
+            <div className="flex flex-1 flex-col gap-4 p-4"></div>
+          </SidebarInset>
+        </SidebarProvider>
       </ThemeProvider>
 
       <TanStackRouterDevtools />
