@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://green-feather-41451536.ap-south-1.aws.cloud.dgraph.io/graphql"
+schema: 'https://green-feather-41451536.ap-south-1.aws.cloud.dgraph.io/graphql'
 documents:
   - 'src/**/*.graphql'
 generates:
@@ -9,7 +9,7 @@ generates:
   src/:
     preset: near-operation-file
     presetConfig:
-      baseTypesPath: types/graphql
+      baseTypesPath: types/graphql.gen.ts
       folder: types
       extension: .gen.ts
     plugins:
