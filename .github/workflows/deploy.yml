@@ -38,6 +38,10 @@ jobs:
         run: yarn build
         working-directory: ./webapp
 
+      - name: Create fallback 404 page
+        run: cp dist/index.html dist/404.html
+        working-directory: ./webapp
+
       - name: Config GitHub Pages
         uses: actions/configure-pages@v5
         id: pages
