@@ -10,6 +10,12 @@ import {
   Send,
   Settings2,
   SquareTerminal,
+  Workflow,
+  Pickaxe,
+  MapIcon,
+  TreeDeciduousIcon,
+  TreeDeciduous,
+  PersonStanding,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/layout/nav-main';
@@ -25,6 +31,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { NavProblems } from './nav-problems';
 
 const data = {
   user: {
@@ -41,80 +48,80 @@ const data = {
       items: [
         {
           title: 'History',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Starred',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Settings',
-          url: '#',
+          url: '/404',
         },
       ],
     },
     {
       title: 'Models',
-      url: '#',
+      url: '/404',
       icon: Bot,
       items: [
         {
           title: 'Genesis',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Explorer',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Quantum',
-          url: '#',
+          url: '/404',
         },
       ],
     },
     {
       title: 'Documentation',
-      url: '#',
+      url: '/404',
       icon: BookOpen,
       items: [
         {
           title: 'Introduction',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Get Started',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Tutorials',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Changelog',
-          url: '#',
+          url: '/404',
         },
       ],
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/404',
       icon: Settings2,
       items: [
         {
           title: 'General',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Team',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Billing',
-          url: '#',
+          url: '/404',
         },
         {
           title: 'Limits',
-          url: '#',
+          url: '/404',
         },
       ],
     },
@@ -122,30 +129,47 @@ const data = {
   navSecondary: [
     {
       title: 'Support',
-      url: '#',
+      url: '/404',
       icon: LifeBuoy,
     },
     {
       title: 'Feedback',
-      url: '#',
+      url: '/404',
       icon: Send,
     },
   ],
   projects: [
     {
       name: 'Design Engineering',
-      url: '#',
+      url: '/404',
       icon: Frame,
     },
     {
       name: 'Sales & Marketing',
-      url: '#',
+      url: '/404',
       icon: PieChart,
     },
     {
       name: 'Travel',
-      url: '#',
+      url: '/404',
       icon: Map,
+    },
+  ],
+  problems: [
+    {
+      name: 'Actionable',
+      url: '/404',
+      icon: Pickaxe,
+    },
+    {
+      name: 'Entire Tree',
+      url: '/problems',
+      icon: TreeDeciduous,
+    },
+    {
+      name: 'Mine',
+      url: '/404',
+      icon: PersonStanding,
     },
   ],
 };
@@ -160,7 +184,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/404">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Banana className="size-4 text-primary" />
                 </div>
@@ -174,6 +198,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <NavProblems problems={data.problems} />
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
