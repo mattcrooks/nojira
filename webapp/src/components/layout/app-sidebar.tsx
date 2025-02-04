@@ -10,10 +10,7 @@ import {
   Send,
   Settings2,
   SquareTerminal,
-  Workflow,
   Pickaxe,
-  MapIcon,
-  TreeDeciduousIcon,
   TreeDeciduous,
   PersonStanding,
 } from 'lucide-react';

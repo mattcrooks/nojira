@@ -1,0 +1,26 @@
+{
+  "name": "nojira",
+  "version": "1.0.0",
+  "description": "NoJira, No Meetings, Just Problem Solving",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blyatlassian/nojira.git"
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/blyatlassian/nojira/issues"
+  },
+  "homepage": "https://github.com/blyatlassian/nojira#readme"
+}
