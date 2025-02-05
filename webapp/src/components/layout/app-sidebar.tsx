@@ -29,12 +29,13 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { NavProblems } from './nav-problems';
+import { useUser } from '@/hooks/use-user';
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: '',
+    email: '',
+    avatar: '',
   },
   navMain: [
     {
@@ -172,6 +173,14 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: userData } = useUser();
+  const user = userData
+    ? {
+        name: userData.name,
+        avatar: userData.avatar_url,
+        email: userData.email,
+      }
+    : data.user;
   return (
     <Sidebar
       className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
@@ -201,7 +210,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );
