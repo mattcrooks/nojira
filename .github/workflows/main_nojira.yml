@@ -39,7 +39,7 @@ jobs:
       - name: Zip artifact for deployment
         run: |
           cd appserver
-          zip -r ../../release.zip dist package.json yarn.lock node_modules
+          zip -r ../release.zip dist package.json yarn.lock node_modules
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
