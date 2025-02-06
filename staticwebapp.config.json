@@ -6,6 +6,15 @@
         "get"
       ],
       "rewrite": "/index.html"
+    },
+    {
+      "navigationFallback": {
+        "rewrite": "/index.html",
+        "exclude": [
+          "/*.{png,jpg,gif,svg}",
+          "/assets/*"
+        ]
+      }
     }
   ]
 }
