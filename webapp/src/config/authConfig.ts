@@ -5,7 +5,7 @@ export const authConfig = {
   tokenEndpoint: 'http://localhost:3000/auth/github/access_token',
   scopes: ['read:user', 'read:org', 'user:email'],
   logoutEndpoint: 'https://github.com/login/oauth/logout',
-  logoutRedirect: 'http://localhost:3000',
+  logoutRedirect: 'http://localhost:8081',
   preLogin: () =>
     localStorage.setItem('preLoginPath', window.location.pathname),
   postLogin: () =>

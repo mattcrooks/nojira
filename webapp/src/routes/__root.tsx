@@ -1,12 +1,25 @@
 import MainLayout from '@/components/layout/main-layout';
 import { createRootRoute } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+import React from 'react';
+
+import { Suspense } from 'react';
+const TanStackRouterDevtools =
+  process.env.NODE_ENV === 'production'
+    ? () => null // Render nothing in production
+    : React.lazy(() =>
+        // Lazy load in development
+        import('@tanstack/router-devtools').then((res) => ({
+          default: res.TanStackRouterDevtools,
+        }))
+      );
 
 export const Route = createRootRoute({
   component: () => (
     <>
       <MainLayout />
-      <TanStackRouterDevtools position="bottom-right" />
+      <Suspense>
+        <TanStackRouterDevtools position="bottom-right" />
+      </Suspense>
     </>
   ),
 });
