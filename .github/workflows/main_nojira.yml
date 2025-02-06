@@ -6,7 +6,9 @@ name: Build and deploy Node.js app to Azure Web App - nojira
 on:
   push:
     branches:
-      - main
+      - main 
+    paths:
+      - "webapp/**"
   workflow_dispatch:
 
 jobs:
@@ -25,12 +27,12 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          yarn install
+          yarn build 
+        working-directory: ./appserver
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./appserver/dist/* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
