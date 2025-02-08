@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+. .husky/common.sh
 
-cd webapp && yarn build
-cd ..
-cd appserver && yarn build
+yarn build

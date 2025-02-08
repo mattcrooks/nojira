@@ -2,19 +2,27 @@
 
 ## Development Environment
 
-This is a mono repo. You will need to run both the app server and the web app
+This project utilizes a monorepo structure, housing both the application server and the web application within the same repository. To get the development environment running, you'll need to start both components.
 
-### App Server (NESTJS)
+You have the option to run the App Server and Web App either concurrently or independently, depending on your development needs.
 
-```
-yarn start:dev
-```
+**To run both concurrently:**
 
-### Web App (REACT)
+From the root directory of the project, execute the following command:
 
-```
+```sh
 yarn dev
 ```
+
+This command will initiate both the application server and the web application in parallel, streamlining your development workflow.
+
+---
+
+**To run them separately:**
+
+### App Server (NestJS)
+
+To start only the application server, navigate to its specific directory.
 
 ## Development DGraph Instance
 
