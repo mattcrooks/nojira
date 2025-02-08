@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProblemsIndexImport } from './routes/problems/index'
+import { Route as ProblemsIdImport } from './routes/problems/$id'
 
 // Create/Update Routes
 
@@ -35,6 +36,12 @@ const ProblemsIndexRoute = ProblemsIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ProblemsIdRoute = ProblemsIdImport.update({
+  id: '/problems/$id',
+  path: '/problems/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/problems/$id': {
+      id: '/problems/$id'
+      path: '/problems/$id'
+      fullPath: '/problems/$id'
+      preLoaderRoute: typeof ProblemsIdImport
+      parentRoute: typeof rootRoute
+    }
     '/problems/': {
       id: '/problems/'
       path: '/problems'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/problems/$id': typeof ProblemsIdRoute
   '/problems': typeof ProblemsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/problems/$id': typeof ProblemsIdRoute
   '/problems': typeof ProblemsIndexRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/problems/$id': typeof ProblemsIdRoute
   '/problems/': typeof ProblemsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/problems'
+  fullPaths: '/' | '/about' | '/problems/$id' | '/problems'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/problems'
-  id: '__root__' | '/' | '/about' | '/problems/'
+  to: '/' | '/about' | '/problems/$id' | '/problems'
+  id: '__root__' | '/' | '/about' | '/problems/$id' | '/problems/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ProblemsIdRoute: typeof ProblemsIdRoute
   ProblemsIndexRoute: typeof ProblemsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ProblemsIdRoute: ProblemsIdRoute,
   ProblemsIndexRoute: ProblemsIndexRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/problems/$id",
         "/problems/"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/problems/$id": {
+      "filePath": "problems/$id.tsx"
     },
     "/problems/": {
       "filePath": "problems/index.tsx"

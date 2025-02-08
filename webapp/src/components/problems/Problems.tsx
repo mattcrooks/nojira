@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Title from "./Title";
-import { useProblemsQuery } from "./types/problems.gen";
+import Title from './Title';
+import { useProblemsQuery } from './types/problems.gen';
 
 export const Problems: React.FC = () => {
   const { data, loading, error } = useProblemsQuery();
@@ -20,7 +20,7 @@ export const Problems: React.FC = () => {
     return (
       <div>
         {problems.map((problem) => (
-          <Title key={problem.id} problem={problem} />
+          <Title key={problem.id} title={problem.title} id={problem.id} />
         ))}
       </div>
     );
