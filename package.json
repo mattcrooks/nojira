@@ -13,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "dev": "concurrently \"yarn --cwd appserver start:dev\" \"yarn --cwd webapp dev\""
+    "dev": "concurrently \"yarn --cwd appserver start:dev\" \"yarn --cwd webapp dev\"",
+    "build": "concurrently \"yarn --cwd appserver build\" \"yarn --cwd webapp build\""
   },
   "repository": {
     "type": "git",
