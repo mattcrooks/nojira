@@ -7,11 +7,13 @@
     "doc": "docs"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "husky": "^8.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dev": "concurrently \"yarn --cwd appserver start:dev\" \"yarn --cwd webapp dev\""
   },
   "repository": {
     "type": "git",
