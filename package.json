@@ -8,11 +8,11 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
-    "husky": "^8.0.0"
+    "husky": "^9.1.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install",
+    "prepare": "husky",
     "dev": "concurrently \"yarn --cwd appserver start:dev\" \"yarn --cwd webapp dev\"",
     "build": "concurrently \"yarn --cwd appserver build\" \"yarn --cwd webapp build\""
   },
