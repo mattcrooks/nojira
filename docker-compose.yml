@@ -1,0 +1,53 @@
+services:
+  dgraph-ratel:
+    image: dgraph/ratel:latest
+    container_name: ratel
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      dgraph:
+        condition: service_healthy
+    networks:
+      - dgraph-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  dgraph:
+    image: dgraph/standalone:latest
+    container_name: dgraph
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "9080:9080"
+    volumes:
+      - ./dgraph/data:/dgraph
+      - ./dgraph/schema.graphql:/dgraph-seed/schema.graphql
+      - ./dgraph/seed_data.json:/dgraph-seed/seed_data.json
+      - ./dgraph/entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/entrypoint.sh"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://dgraph:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    environment:
+      - DGRAPH_ALPHA_CONTAINER_PORT=9080
+      - DGRAPH_ALPHA_CONTAINER_HTTP_PORT=8080
+    networks:
+      - dgraph-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  dgraph_data:
+
+networks:
+  dgraph-network:
+    driver: bridge

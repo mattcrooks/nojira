@@ -2,6 +2,9 @@
 .DS_Store
 Desktop.ini
 
+#dgraph data files
+dgraph/data
+
 # Thumbnail cache files
 ._*
 Thumbs.db
