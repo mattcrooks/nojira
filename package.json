@@ -14,7 +14,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
     "dev": "concurrently \"yarn --cwd appserver start:dev\" \"yarn --cwd webapp dev\"",
-    "build": "concurrently \"yarn --cwd appserver build\" \"yarn --cwd webapp build\""
+    "build": "concurrently \"yarn --cwd appserver build\" \"yarn --cwd webapp build\"",
+    "sync-fork": "git fetch upstream && git checkout main && git merge upstream/main && git push origin main"
   },
   "repository": {
     "type": "git",

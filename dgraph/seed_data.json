@@ -1,0 +1,87 @@
+{
+  "set": [
+    {
+      "dgraph.type": "User",
+      "User.name": "Alice",
+      "User.github": "alice-dev",
+      "User.roles": ["ADMIN"]
+    },
+    {
+      "dgraph.type": "User",
+      "User.name": "Bob",
+      "User.github": "bob-dev",
+      "User.roles": ["MAINTAINER"]
+    },
+    {
+      "dgraph.type": "User",
+      "User.name": "Charlie",
+      "User.github": "charlie-dev",
+      "User.roles": ["CONTRIBUTOR"]
+    },
+    {
+      "dgraph.type": "User",
+      "User.name": "Dave",
+      "User.github": "dave-dev",
+      "User.roles": ["VIEWER"]
+    },
+
+    {
+      "dgraph.type": "Organization",
+      "Organization.name": "OpenSourceOrg",
+      "Organization.githubOrg": "opensource",
+      "Organization.admins": [{ "User.name": "Alice" }],
+      "Organization.createdBy": { "User.name": "Alice" }
+    },
+    {
+      "dgraph.type": "Organization",
+      "Organization.name": "EnterpriseOrg",
+      "Organization.githubOrg": "enterprise",
+      "Organization.admins": [{ "User.name": "Bob" }],
+      "Organization.createdBy": { "User.name": "Bob" }
+    },
+
+    {
+      "dgraph.type": "Problem",
+      "Problem.title": "Fix memory leak",
+      "Problem.shortDescription": "Investigate and fix memory leak in API",
+      "Problem.status": "OPEN",
+      "Problem.creator": { "User.name": "Alice" },
+      "Problem.orgs": [{ "Organization.name": "OpenSourceOrg" }]
+    },
+    {
+      "dgraph.type": "Problem",
+      "Problem.title": "Optimize database queries",
+      "Problem.shortDescription": "Improve SQL performance in billing module",
+      "Problem.status": "CLAIMED",
+      "Problem.creator": { "User.name": "Bob" },
+      "Problem.claimedBy": { "User.name": "Charlie" },
+      "Problem.orgs": [{ "Organization.name": "OpenSourceOrg" }]
+    },
+
+    {
+      "dgraph.type": "Solution",
+      "Solution.creator": { "User.name": "Charlie" },
+      "Solution.problem": { "Problem.title": "Fix memory leak" },
+      "Solution.url": "https://github.com/OpenSourceOrg/fix-memory-leak"
+    },
+    {
+      "dgraph.type": "Solution",
+      "Solution.creator": { "User.name": "Bob" },
+      "Solution.problem": { "Problem.title": "Optimize database queries" },
+      "Solution.url": "https://github.com/OpenSourceOrg/optimize-db"
+    },
+
+    {
+      "dgraph.type": "Comment",
+      "Comment.creator": { "User.name": "Dave" },
+      "Comment.parentProblem": { "Problem.title": "Fix memory leak" },
+      "Comment.text": "Have we tested this in production?"
+    },
+    {
+      "dgraph.type": "Comment",
+      "Comment.creator": { "User.name": "Charlie" },
+      "Comment.parentProblem": { "Problem.title": "Optimize database queries" },
+      "Comment.text": "This approach improves query performance by 40%."
+    }
+  ]
+}
